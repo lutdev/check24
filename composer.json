@@ -1,0 +1,13 @@
+{
+    "name": "andrew/check24",
+    "type": "project",
+    "authors": [
+        {
+            "name": "alutskevych",
+            "email": "karantin91@gmail.com"
+        }
+    ],
+    "require": {
+        "php": "8.1"
+    }
+}
