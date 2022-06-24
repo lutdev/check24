@@ -3,10 +3,19 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
+use Twig\Environment;
+
 class Controller
 {
-    public function view(string $templatePath): void
+    private Environment $twig;
+
+    public function view(string $templatePath, array $params): string
     {
-        include __DIR__.'/../../public/views/'.$templatePath.'.php';
+        return $this->twig->render($templatePath.'.html', $params);
+    }
+
+    public function setTwig(Environment $twig): void
+    {
+        $this->twig = $twig;
     }
 }

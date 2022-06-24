@@ -4,6 +4,9 @@ declare(strict_types=1);
 namespace App\Configuration\Routing;
 
 use App\Configuration\Routing\Exceptions\RequestMethodIsNotValidException;
+use App\Controller\Controller;
+use Twig\Environment;
+use Twig\Loader\FilesystemLoader;
 
 /**
  * Base class for handling routes
@@ -21,6 +24,14 @@ class Route
             throw new RequestMethodIsNotValidException($requestMethod);
         }
 
-        return (new $controller)->{$action}();
+        $dirpath = realpath(__DIR__.'/../../../public/views/');
+        $loader = new FilesystemLoader($dirpath);
+        $twig = new Environment($loader);
+
+        /** @var Controller $controller */
+        $controller = new $controller;
+        $controller->setTwig($twig);
+
+        echo $controller->{$action}();
     }
 }
