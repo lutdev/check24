@@ -3,10 +3,10 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
-class HomeController
+class HomeController extends Controller
 {
-    public function index(): void
+    public function index(): string
     {
-        echo 'Hello world';
+        return $this->view('home');
     }
 }
