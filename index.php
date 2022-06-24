@@ -1,4 +1,11 @@
 <?php
 declare(strict_types=1);
 require __DIR__ . '/vendor/autoload.php';
-require __DIR__ . '/config/routing.php';
+
+use App\Kernel;
+
+$routing = include __DIR__ . '/config/routing.php';
+
+$kernel = new Kernel();
+$requestMethod = $_SERVER['REQUEST_METHOD'];
+$kernel->run($routing[$requestMethod]);

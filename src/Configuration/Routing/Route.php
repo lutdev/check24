@@ -3,36 +3,31 @@ declare(strict_types=1);
 
 namespace App\Configuration\Routing;
 
-use App\Configuration\Routing\Exceptions\RequestMethodIsNotValidException;
-use DI\ContainerBuilder;
-use DI\DependencyException;
-use DI\NotFoundException;
-
 /**
  * Base class for handling routes
  */
 class Route
 {
-    /**
-     * @throws RequestMethodIsNotValidException
-     * @throws DependencyException
-     * @throws NotFoundException
-     */
-    public static function get(string $path, string $controllerName, string $action)
+    private array $routesGetMethod = [];
+    private array $routesPostMethod = [];
+
+    public function get(string $path, string $controllerName, string $action): void
     {
-        $requestMethod = $_SERVER['REQUEST_METHOD'];
+        $this->routesGetMethod[$path] = [$controllerName, $action];
+    }
 
-        if ($requestMethod !== 'GET') {
-            throw new RequestMethodIsNotValidException($requestMethod);
-        }
+    public function post(string $path, string $controllerName, string $action): void
+    {
+        $this->routesPostMethod[$path] = [$controllerName, $action];
+    }
 
-        $builder = new ContainerBuilder();
-        $defPath = realpath(__DIR__.'/../../../config/di.php');
-        $builder->addDefinitions($defPath);
-        $container = $builder->build();
+    public function getRoutesForGetMethod(): array
+    {
+        return $this->routesGetMethod;
+    }
 
-        $controller = $container->get($controllerName);
-
-        echo $controller->{$action}();
+    public function getRoutesForPostMethod(): array
+    {
+        return $this->routesPostMethod;
     }
 }
