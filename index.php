@@ -1,3 +1,4 @@
 <?php
 declare(strict_types=1);
-echo 'Hello world!';
+require __DIR__ . '/vendor/autoload.php';
+require __DIR__ . '/config/routing.php';
