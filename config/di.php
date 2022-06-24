@@ -40,6 +40,10 @@ return [
         $service = $container->get(GetArticlesService::class);
         $articleTransformer = $container->get(ArticleTransformer::class);
 
-        return new HomeController($container->get(Environment::class), $service, $articleTransformer);
+        return new HomeController(
+            $container->get(Environment::class),
+            $service,
+            $articleTransformer
+        );
     }
 ];

@@ -17,14 +17,15 @@ class HomeController extends Controller
         parent::__construct($this->twig);
     }
 
-    public function index():  string
+    public function index(): string
     {
         $articles = $this->getArticlesService->process();
 
         $transformedArticles = $this->articleTransformer->transformAll($articles);
 
         return $this->view('home', [
-            'articles' => $transformedArticles
+            'articles' => $transformedArticles,
+            'isUserLogged' => $this->isUserLogged()
         ]);
     }
 }

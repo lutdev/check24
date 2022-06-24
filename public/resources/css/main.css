@@ -3,7 +3,7 @@ header {
     align-items: end;
 }
 
-#blog_logo {
+#blog-logo {
     background: #ebe7e7;
     width: 150px;
     height: 150px;
@@ -12,17 +12,17 @@ header {
     align-items: center;
 }
 
-#blog_name {
+#blog-name {
     padding: 0 20px;
 }
 
-#blog_name a {
+#blog-name a {
     text-decoration: none;
     color: black;
     font-size: 40px;
 }
 
-#blog_name a:hover {
+#blog-name a:hover {
     opacity: 0.5;
 }
 

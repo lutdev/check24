@@ -8,20 +8,26 @@
 </head>
 <body>
     <header>
-        <div id="blog_logo">
+        <div id="blog-logo">
             <span>BlogLogo&Link</span>
         </div>
-        <div id="blog_name">
+        <div id="blog-name">
             <a href="#">Blog Name</a>
         </div>
     </header>
     <div id="navigation">
         <nav>
             <a href="#">Übersicht</a>
-            <a href="#">[Neuer Eintag]</a>
+            {% if (isUserLogged) %}
+                <a href="#">[Neuer Eintag]</a>
+            {% endif %}
             <a href="#">Impressum</a>
         </nav>
-        <a href="#">[Login/Logout]</a>
+        {% if (isUserLogged) %}
+            <a href="/logout">Logout</a>
+        {% else %}
+            <a href="/login">Login</a>
+        {% endif %}
     </div>
     <main>
         {% for article in articles %}

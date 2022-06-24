@@ -1,0 +1,18 @@
+#login-form {
+    background: #e1e1ff;
+    padding: 20px 50px;
+}
+.form-row {
+    margin: 0 0 10px;
+    display: flex;
+}
+
+label {
+    min-width: 100px;
+}
+
+.input-field {
+    height: 20px;
+    background: #f7f7f7;
+    border: solid 1px;
+}

@@ -1,0 +1,52 @@
+<!-- I can use default template for this because I don`t want to have duplicate codes. But time, time... -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/resources/css/main.css">
+    <link rel="stylesheet" href="/resources/css/login.css">
+    <title>Check24 Tech task</title>
+</head>
+<body>
+<header>
+    <div id="blog-logo">
+        <span>BlogLogo&Link</span>
+    </div>
+    <div id="blog-name">
+        <a href="#">Blog Name</a>
+    </div>
+</header>
+<div id="navigation">
+    <nav>
+        <a href="#">Übersicht</a>
+        {% if (isUserLogged) %}
+            <a href="#">[Neuer Eintag]</a>
+        {% endif %}
+        <a href="#">Impressum</a>
+    </nav>
+    {% if (isUserLogged) %}
+        <a href="/logout">Logout</a>
+    {% else %}
+        <a href="/login">Login</a>
+    {% endif %}
+</div>
+<main>
+    <form method="POST" id="login-form">
+        <div class="form-row">
+            <label>Benutzename:</label>
+            <input type="text" name="login" maxlength="100" class="input-field" required>
+        </div>
+
+        <div class="form-row">
+            <label>Password:</label>
+            <input type="password" name="password" maxlength="10" class="input-field" required>
+        </div>
+
+        <div class="form-row">
+            <input type="submit" value="Login">
+        </div>
+    </form>
+</main>
+</body>
+</html>
