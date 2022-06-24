@@ -5,7 +5,7 @@ namespace App\Controller;
 
 class Controller
 {
-    public function view(string $templatePath): string
+    public function view(string $templatePath): void
     {
         include __DIR__.'/../../public/views/'.$templatePath.'.php';
     }
