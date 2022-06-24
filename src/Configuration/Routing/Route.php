@@ -4,11 +4,9 @@ declare(strict_types=1);
 namespace App\Configuration\Routing;
 
 use App\Configuration\Routing\Exceptions\RequestMethodIsNotValidException;
-use App\Controller\Controller;
-use Doctrine\ORM\EntityManager;
-use Doctrine\ORM\ORMSetup;
-use Twig\Environment;
-use Twig\Loader\FilesystemLoader;
+use DI\ContainerBuilder;
+use DI\DependencyException;
+use DI\NotFoundException;
 
 /**
  * Base class for handling routes
@@ -17,8 +15,10 @@ class Route
 {
     /**
      * @throws RequestMethodIsNotValidException
+     * @throws DependencyException
+     * @throws NotFoundException
      */
-    public static function get(string $path, string $controller, string $action)
+    public static function get(string $path, string $controllerName, string $action)
     {
         $requestMethod = $_SERVER['REQUEST_METHOD'];
 
@@ -26,20 +26,12 @@ class Route
             throw new RequestMethodIsNotValidException($requestMethod);
         }
 
-        $dirpath = realpath(__DIR__.'/../../../public/views/');
-        $loader = new FilesystemLoader($dirpath);
-        $twig = new Environment($loader);
+        $builder = new ContainerBuilder();
+        $defPath = realpath(__DIR__.'/../../../config/di.php');
+        $builder->addDefinitions($defPath);
+        $container = $builder->build();
 
-        /** @var Controller $controller */
-        $controller = new $controller;
-        $controller->setTwig($twig);
-
-        $dbConnectionPath = realpath(__DIR__.'/../../../config/database.php');
-        $conn = include $dbConnectionPath;
-        $paths = [$conn['entities_path']];
-        $config = ORMSetup::createAnnotationMetadataConfiguration($paths, true);
-        $entityManager = EntityManager::create($conn['connection'], $config);
-        $controller->setEntityManager($entityManager);
+        $controller = $container->get($controllerName);
 
         echo $controller->{$action}();
     }

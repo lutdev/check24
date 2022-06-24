@@ -5,21 +5,23 @@ namespace App\Controller;
 
 use App\Application\Service\GetArticlesService;
 use App\Controller\Transformer\ArticleTransformer;
+use Twig\Environment;
 
 class HomeController extends Controller
 {
-    //I want to use DI, but I need more time to configure this
     public function __construct(
-        //private GetArticlesService $getArticlesService,
+        private Environment $twig,
+        private GetArticlesService $getArticlesService,
+        private ArticleTransformer $articleTransformer,
     ) {
+        parent::__construct($this->twig);
     }
 
     public function index():  string
     {
-        $articles = (new GetArticlesService($this->getEntityManager()))
-            ->process();
+        $articles = $this->getArticlesService->process();
 
-        $transformedArticles = (new ArticleTransformer())->transformAll($articles);
+        $transformedArticles = $this->articleTransformer->transformAll($articles);
 
         return $this->view('home', [
             'articles' => $transformedArticles

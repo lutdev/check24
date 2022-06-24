@@ -16,6 +16,7 @@
         "doctrine/annotations": "1.13.2",
         "doctrine/dbal": "^3.2",
         "doctrine/orm": "^2.11.0",
+        "php-di/php-di": "7.x-dev",
         "symfony/cache": "^6.1",
         "twig/twig": "^3.0"
     },
