@@ -5,6 +5,8 @@ namespace App\Configuration\Routing;
 
 use App\Configuration\Routing\Exceptions\RequestMethodIsNotValidException;
 use App\Controller\Controller;
+use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\ORMSetup;
 use Twig\Environment;
 use Twig\Loader\FilesystemLoader;
 
@@ -31,6 +33,13 @@ class Route
         /** @var Controller $controller */
         $controller = new $controller;
         $controller->setTwig($twig);
+
+        $dbConnectionPath = realpath(__DIR__.'/../../../config/database.php');
+        $conn = include $dbConnectionPath;
+        $paths = [$conn['entities_path']];
+        $config = ORMSetup::createAnnotationMetadataConfiguration($paths, true);
+        $entityManager = EntityManager::create($conn['connection'], $config);
+        $controller->setEntityManager($entityManager);
 
         echo $controller->{$action}();
     }

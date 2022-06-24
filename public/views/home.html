@@ -25,7 +25,9 @@
     </div>
     <main>
         {% for article in articles %}
-            3
+            <div>
+                <p>{{article.id}}</p>
+            </div>
         {% else %}
             <p>No articles</p>
         {% endfor %}

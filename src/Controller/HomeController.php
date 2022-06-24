@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace App\Controller;
 
 use App\Application\Service\GetArticlesService;
+use App\Controller\Transformer\ArticleTransformer;
 
 class HomeController extends Controller
 {
@@ -15,10 +16,13 @@ class HomeController extends Controller
 
     public function index():  string
     {
-        $articles = (new GetArticlesService())->process();
+        $articles = (new GetArticlesService($this->getEntityManager()))
+            ->process();
+
+        $transformedArticles = (new ArticleTransformer())->transformAll($articles);
 
         return $this->view('home', [
-            'articles' => $articles
+            'articles' => $transformedArticles
         ]);
     }
 }
