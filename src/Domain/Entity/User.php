@@ -8,6 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * @ORM\Entity
  * @ORM\Table(name="users")
+ * @ORM\Entity(repositoryClass="App\Application\Infrastructure\UserRepository")
  */
 class User
 {
@@ -17,6 +18,16 @@ class User
      * @ORM\GeneratedValue
      */
     private int $id;
+
+    /**
+     * @ORM\Column(type="string", length=100)
+     */
+    private string $login;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private string $password;
 
     public function getId(): int
     {

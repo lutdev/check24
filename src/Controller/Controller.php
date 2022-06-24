@@ -4,12 +4,14 @@ declare(strict_types=1);
 namespace App\Controller;
 
 use App\Configuration\Authentication;
+use App\Configuration\Request;
 use Twig\Environment;
 
 class Controller
 {
     public function __construct(
-        private Environment $twig
+        public Request $request,
+        private Environment $twig,
     ) {
     }
 

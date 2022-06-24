@@ -54,3 +54,7 @@ header {
 #navigation a {
     margin: 0 20px;
 }
+
+.error {
+    color: red;
+}
